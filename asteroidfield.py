@@ -24,7 +24,7 @@ class AsteroidField(pygame.sprite.Sprite):
             pygame.Vector2(0, -1),
             lambda x: pygame.Vector2(
                 x * SCREEN_WIDTH, SCREEN_HEIGHT + ASTEROID_MAX_RADIUS
-            ),
+            ), 
         ],
     ]
 

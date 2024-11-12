@@ -2,6 +2,7 @@ import pygame
 import random
 from circleshape import *
 from constants import *
+from powerup import Powerup
 
 
 class Asteroid(CircleShape):
@@ -13,9 +14,24 @@ class Asteroid(CircleShape):
 
    def update(self, dt):
       self.position += self.velocity * dt
-   
+      if self.position.x < -ASTEROID_MAX_RADIUS:
+         self.position.x = SCREEN_WIDTH + ASTEROID_MAX_RADIUS
+      if self.position.x > SCREEN_WIDTH + ASTEROID_MAX_RADIUS:
+         self.position.x = -ASTEROID_MAX_RADIUS
+      if self.position.y < -ASTEROID_MAX_RADIUS:
+         self.position.y = SCREEN_HEIGHT + ASTEROID_MAX_RADIUS
+      if self.position.y > SCREEN_HEIGHT + ASTEROID_MAX_RADIUS:
+         self.position.y = -ASTEROID_MAX_RADIUS
+
    def split(self):
       self.kill()
+      randomNum = random.randint(0,99)
+      if randomNum < 4:
+         if randomNum % 2 == 0:
+            shieldPowerup = Powerup(self.position.x, self.position.y, 'shield')
+         else:
+            lazerPowerup = Powerup(self.position.x, self.position.y, 'lazer')
+   
       if self.radius <= ASTEROID_MIN_RADIUS:
          return
       randomAngle = random.uniform(20, 50)
